@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicosyr - قيد التطوير / Under Development</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1a2e19, #2c3e50);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body.en {
+            direction: ltr;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* زر تبديل اللغة */
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .lang-btn {
+            background: white;
+            color: #2E7D32;
+            border: 2px solid #2E7D32;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .lang-btn:hover {
+            background: #2E7D32;
+            color: white;
+        }
+
+        .container {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            padding: 70px 40px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, #2E7D32, #D4AF37);
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            font-size: 3.5rem;
+            color: #2E7D32;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo p {
+            font-size: 1.4rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* شعار الشركة كصورة */
+        .logo-image {
+            margin: 20px auto;
+            max-width: 500px;
+            display: block;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .logo-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid #ddd;
+        }
+
+        .main-content {
+            margin: 40px 0;
+        }
+
+        .main-content h2 {
+            font-size: 2.8rem;
+            color: #2E7D32;
+            margin-bottom: 20px;
+        }
+
+        .main-content p {
+            font-size: 1.3rem;
+            color: #444;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .countdown-box {
+            background: linear-gradient(to bottom, #2E7D32, #1b5e20);
+            color: white;
+            border-radius: 15px;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .countdown-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .countdown-box .number {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .countdown-box .label {
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            border-left: 5px solid #2E7D32;
+        }
+
+        .contact-info h3 {
+            color: #2E7D32;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            color: #444;
+        }
+
+        .contact-item i {
+            color: #2E7D32;
+            font-size: 1.4rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: #2E7D32;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: #1b5e20;
+            transform: translateY(-5px);
+        }
+
+        .notification {
+            background: #fff8e1;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .notification p {
+            font-size: 1.2rem;
+            color: #5d4037;
+            margin: 0;
+        }
+
+        .doctor-signature {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .doctor-signature p {
+            font-size: 1.4rem;
+            color: #2E7D32;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .doctor-signature .title {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 50px 20px 30px;
+            }
+            
+            .logo h1 {
+                font-size: 2.5rem;
+            }
+            
+            .logo-image {
+                max-width: 350px;
+            }
+            
+            .main-content h2 {
+                font-size: 2.2rem;
+            }
+            
+            .countdown-box {
+                width: 110px;
+                height: 110px;
+            }
+            
+            .countdown-box .number {
+                font-size: 2.2rem;
+            }
+            
+            .countdown-box .label {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .logo-image {
+                max-width: 280px;
+            }
+            
+            .main-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .countdown {
+                gap: 10px;
+            }
+            
+            .countdown-box {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .countdown-box .number {
+                font-size: 1.8rem;
+            }
+            
+            .contact-details {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo, .logo-image, .main-content, .countdown, .contact-info, .notification, .doctor-signature {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .logo { animation-delay: 0.2s; }
+        .logo-image { animation-delay: 0.3s; }
+        .main-content { animation-delay: 0.4s; }
+        .countdown { animation-delay: 0.6s; }
+        .contact-info { animation-delay: 0.8s; }
+        .notification { animation-delay: 1s; }
+        .doctor-signature { animation-delay: 1.2s; }
+    </style>
+</head>
+<body>
+    <!-- زر تبديل اللغة -->
+    <div class="lang-switcher">
+        <button class="lang-btn" id="langToggle">
+            <i class="fa fa-globe"></i> English
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="logo">
+            <h1>Medicosyr</h1>
+            
+            <!-- شعار الشركة كصورة -->
+            <div class="logo-image">
+                <!-- تم تضمين الشعار مباشرة في الكود باستخدام Base64 -->
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWQiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFlNWExOTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMkU3RDMyO3N0b3Atb3BhY2l0eToxIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz4KICA8dGV4dCB4PSI1MCUiIHk9IjQwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjQ4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPk1FRElDT1NZUjwvdGV4dD4KICA8dGV4dCB4PSI1MCUiIHk9IjY1JSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+V2UgYXJlIHlvdXIgdHJ1c3QuPC90ZXh0Pgo8L3N2Zz4=" alt="Medicosyr - We are your trust">
+            </div>
+            
+            <p class="ar-text">الحلول الطبية المتكاملة تحت إشراف د. محمد النشيران</p>
+            <p class="en-text" style="display:none;">Integrated Medical Solutions under supervision of Dr. Mohammad Nushiran</p>
+        </div>
+        
+        <div class="main-content">
+            <h2 class="ar-text">الموقع قيد التطوير</h2>
+            <h2 class="en-text" style="display:none;">Website Under Development</h2>
+            
+            <p class="ar-text">نعمل حالياً على تطوير موقعنا الإلكتروني لتقديم تجربة أفضل لزوارنا الكرام. سيكون الموقع متاحاً قريباً مع محتوى غني وخدمات متكاملة في المجال الطبي.</p>
+            <p class="en-text" style="display:none;">We are currently developing our website to provide a better experience for our visitors. The site will be available soon with rich content and integrated medical services.</p>
+            
+            <div class="countdown">
+                <div class="countdown-box">
+                    <div class="number" id="days">30</div>
+                    <div class="label ar-text">أيام</div>
+                    <div class="label en-text" style="display:none;">Days</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="number" id="hours">00</div>
+                    <div class="label ar-text">ساعات</div>
+                    <div class="label en-text" style="display:none;">Hours</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="number" id="minutes">00</div>
+                    <div class="label ar-text">دقائق</div>
+                    <div class="label en-text" style="display:none;">Minutes</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="number" id="seconds">00</div>
+                    <div class="label ar-text">ثواني</div>
+                    <div class="label en-text" style="display:none;">Seconds</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-info">
+            <h3 class="ar-text">للتواصل معنا خلال فترة التطوير</h3>
+            <h3 class="en-text" style="display:none;">Contact Us During Development</h3>
+            
+            <div class="contact-details">
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>00963933495233</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>dr.nshiran@icloud.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="ar-text">القامشلي، سوريا</span>
+                    <span class="en-text" style="display:none;">Qamishli, Syria</span>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        
+        <div class="notification">
+            <p class="ar-text"><i class="fas fa-info-circle"></i> سنقوم بالإطلاق الرسمي للموقع بعد 30 يوم من الآن</p>
+            <p class="en-text" style="display:none;"><i class="fas fa-info-circle"></i> The official launch will be in 30 days from now</p>
+        </div>
+        
+        <div class="doctor-signature">
+            <p class="ar-text">د. محمد عويد النشيران</p>
+            <p class="en-text" style="display:none;">Dr. Mohammad Nushiran</p>
+            <div class="title ar-text">استشاري الجراحة التجميلية والترميمية</div>
+            <div class="title en-text" style="display:none;">Consultant of Plastic and Reconstructive Surgery</div>
+        </div>
+        
+        <div class="copyright">
+            <p class="ar-text">جميع الحقوق محفوظة &copy; 2025 Medicosyr</p>
+            <p class="en-text" style="display:none;">All Rights Reserved &copy; 2025 Medicosyr</p>
+        </div>
+    </div>
+
+    <script>
+        // تاريخ الإطلاق (بعد شهر من اليوم)
+        const launchDate = new Date();
+        launchDate.setMonth(launchDate.getMonth() + 1);
+        
+        // تحديث العد التنازلي
+        function updateCountdown() {
+            const now = new Date();
+            const diff = launchDate - now;
+            
+            // الحسابات الزمنية
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            // تحديث العناصر
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // التحقق من انتهاء العد التنازلي
+            if (diff < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector('.countdown').innerHTML = '<div class="launch-message ar-text">تم إطلاق الموقع بنجاح!</div><div class="launch-message en-text" style="display:none;">Website launched successfully!</div>';
+            }
+        }
+        
+        // تحديث العد التنازلي كل ثانية
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // تبديل اللغة
+        document.getElementById('langToggle').addEventListener('click', function() {
+            document.body.classList.toggle('en');
+            
+            if (document.body.classList.contains('en')) {
+                this.innerHTML = '<i class="fa fa-globe"></i> العربية';
+                
+                // إظهار النصوص الإنجليزية وإخفاء العربية
+                document.querySelectorAll('.en-text').forEach(el => {
+                    el.style.display = 'block';
+                });
+                document.querySelectorAll('.ar-text').forEach(el => {
+                    el.style.display = 'none';
+                });
+            } else {
+                this.innerHTML = '<i class="fa fa-globe"></i> English';
+                
+                // إظهار النصوص العربية وإخفاء الإنجليزية
+                document.querySelectorAll('.ar-text').forEach(el => {
+                    el.style.display = 'block';
+                });
+                document.querySelectorAll('.en-text').forEach(el => {
+                    el.style.display = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
